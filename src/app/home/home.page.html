@@ -5,10 +5,15 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button class="icon-button">
-        <ion-icon name="search-outline"></ion-icon>
+        <ion-icon name="search-outline" size="large"></ion-icon>
       </ion-button>
-      <ion-button class="icon-button">
-        <ion-icon name="cart-outline"></ion-icon>
+      <ion-button class="icon-button" (click)="goToCart()">
+        <ion-icon name="cart-outline" size="large"></ion-icon>
+        <ion-badge *ngIf="(cartItemCount$ | async) as count" 
+                  [style.display]="count > 0 ? 'block' : 'none'"
+                  color="danger">
+          {{ count }}
+        </ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -29,6 +34,46 @@
           <div class="overlay">
             <h1 class="hero-title">Descubre tu estilo</h1>
             <p class="hero-subtitle">Colección 2024</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1552346154-21d32810aba3')">
+          <div class="overlay">
+            <h1 class="hero-title">Innovación y Confort</h1>
+            <p class="hero-subtitle">Tecnología de última generación</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb')">
+          <div class="overlay">
+            <h1 class="hero-title">Ediciones Limitadas</h1>
+            <p class="hero-subtitle">Exclusividad en cada paso</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa')">
+          <div class="overlay">
+            <h1 class="hero-title">Diseño Premium</h1>
+            <p class="hero-subtitle">Calidad que se nota</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1597248881519-db089d3744a5')">
+          <div class="overlay">
+            <h1 class="hero-title">Estilo Urbano</h1>
+            <p class="hero-subtitle">La ciudad es tu pasarela</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772')">
+          <div class="overlay">
+            <h1 class="hero-title">Colección Deportiva</h1>
+            <p class="hero-subtitle">Supera tus límites</p>
           </div>
         </div>
       </swiper-slide>
@@ -67,14 +112,9 @@
    <div class="products-grid">
     <div class="product-card" *ngFor="let product of products">
       <div class="product-image-container" (click)="showProductDetail(product)">
-        <img [src]="product.image_url" [alt]="product.name" class="product-image">
+        <img [src]="product.image_url" [alt]="product.name">
         <div class="stock-badge">
-          Stock {{product.stock}} 
-        </div>
-        <div class="quick-add">
-          <ion-button fill="clear" class="add-to-cart-btn">
-            <ion-icon name="cart-outline"></ion-icon>
-          </ion-button>
+          {{product.stock}}
         </div>
       </div>
       <div class="product-details">
@@ -86,10 +126,17 @@
             <span class="label">Precio:</span>
             <span class="product-price">S/ {{product.price}}</span>
           </div>
-          <div class="size-container">
+          <div class="description-container">
+            <span class="label">Descripción:</span>
+            <p class="product-description">{{product.description || 'Sin descripción disponible'}}</p>
+          </div>
+          <div class="size">
             <span class="label">Talla:</span>
-            <div class="size-chips">
-              <span class="size-chip" *ngFor="let size of product.size">{{size}}</span>
+            <span class="size-chip" *ngFor="let size of product.size">{{size}}</span>
+            <div class="floating-cart">
+              <ion-button fill="clear" class="cart-btn" (click)="addToCart(product)">
+                <ion-icon name="cart-outline"></ion-icon>
+              </ion-button>
             </div>
           </div>
         </div>

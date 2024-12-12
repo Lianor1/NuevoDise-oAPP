@@ -1,0 +1,94 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span class="title-text">Tu Carrito</span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="cart-content">
+  <!-- Resumen flotante superior -->
+  <div class="cart-summary-header" *ngIf="(cartItems$ | async)?.length">
+    <div class="summary-info">
+      <div class="items-count">
+        {{(cartItems$ | async)?.length}} productos
+      </div>
+      <div class="total-amount">
+        Total: S/ {{total$ | async | number:'1.2-2'}}
+      </div>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <!-- Lista de productos -->
+    <div class="cart-items" *ngIf="(cartItems$ | async)?.length">
+      <div class="cart-item" *ngFor="let item of cartItems$ | async">
+        <div class="item-image">
+          <img [src]="item.image_url" [alt]="item.name">
+        </div>
+        
+        <div class="item-details">
+          <div class="item-header">
+            <h2>{{item.name}}</h2>
+            <ion-button fill="clear" (click)="removeItem(item)" class="delete-btn">
+              <ion-icon name="trash-outline" color="danger"></ion-icon>
+            </ion-button>
+          </div>
+          
+          <div class="item-meta">
+            <span class="size">Talla: {{item.size}}</span>
+            <span class="price">S/ {{item.price}}</span>
+          </div>
+          
+          <div class="quantity-controls">
+            <div class="quantity-buttons">
+              <ion-button fill="clear" (click)="updateQuantity(item, -1)" [disabled]="item.quantity <= 1">
+                <ion-icon name="remove-circle"></ion-icon>
+              </ion-button>
+              <span class="quantity">{{item.quantity}}</span>
+              <ion-button fill="clear" (click)="updateQuantity(item, 1)">
+                <ion-icon name="add-circle"></ion-icon>
+              </ion-button>
+            </div>
+            <span class="subtotal">
+              Subtotal: S/ {{item.price * item.quantity}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen de compra -->
+      <div class="checkout-summary">
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>S/ {{total$ | async | number:'1.2-2'}}</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total</span>
+          <span>S/ {{total$ | async | number:'1.2-2'}}</span>
+        </div>
+        
+        <ion-button expand="block" class="checkout-button" (click)="checkout()">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          Proceder al pago seguro
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Carrito vacío -->
+    <div class="empty-cart" *ngIf="!(cartItems$ | async)?.length">
+      <div class="empty-illustration">
+        <ion-icon name="cart-outline"></ion-icon>
+      </div>
+      <h2>¡Tu carrito está vacío!</h2>
+      <p>Parece que aún no has agregado productos a tu carrito</p>
+      <ion-button expand="block" routerLink="/home" class="shop-button">
+        <ion-icon name="bag-outline" slot="start"></ion-icon>
+        Explorar productos
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

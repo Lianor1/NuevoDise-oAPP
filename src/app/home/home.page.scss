@@ -103,26 +103,67 @@
 
 // Categorías
 .category-scroll {
-  padding: 1rem;
+  padding: 10px 16px;
   background: white;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 999;
+  border-bottom: 1px solid #eee;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   .custom-segment {
     --background: transparent;
+    min-width: min-content;
     
     .segment-button {
-      --color: var(--primary-color);
+      --background: transparent;
+      --background-checked: #1a73e8;
+      --color: #666;
       --color-checked: white;
-      --background-checked: var(--primary-color);
+      --indicator-color: transparent;
+      min-height: 40px;
+      font-size: 14px;
+      font-weight: 500;
       border-radius: 20px;
+      margin: 0 4px;
       text-transform: none;
-      font-weight: 600;
+      min-width: auto;
       
+      ion-label {
+        margin: 0;
+        padding: 0 12px;
+        white-space: nowrap;
+        overflow: visible;
+      }
+
       &::part(indicator) {
         display: none;
+      }
+
+      &.segment-button-checked {
+        --background: #1a73e8;
+        box-shadow: 0 2px 4px rgba(26, 115, 232, 0.2);
+      }
+
+      &:hover {
+        --background: rgba(26, 115, 232, 0.1);
+      }
+    }
+  }
+
+  @media (max-width: 360px) {
+    padding: 10px 8px;
+    
+    .custom-segment .segment-button {
+      min-width: auto;
+      
+      ion-label {
+        padding: 0 8px;
+        font-size: 13px;
       }
     }
   }
@@ -162,40 +203,48 @@
 
       .stock-badge {
         position: absolute;
-        top: 8px;
-        left: 8px;
+        top: 10px;
+        left: 0;
         background: #ff4444;
         color: white;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 0.8rem;
+        padding: 4px 12px;
+        border-radius: 0 20px 20px 0;
+        font-size: 0.85rem;
         z-index: 2;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+
+        &::before {
+          content: 'Stock ';
+          margin-right: 2px;
+        }
       }
 
       .quick-add {
         position: absolute;
-        bottom: 8px;
-        right: 8px;
-        padding: 0.5rem;
+        bottom: 10px;
+        right: 10px;
         z-index: 2;
 
         .add-to-cart-btn {
           --background: transparent;
           --border-radius: 50%;
-          --padding-start: 0.5rem;
-          --padding-end: 0.5rem;
+          --padding-start: 0;
+          --padding-end: 0;
           margin: 0;
-          height: 36px;
-          width: 36px;
+          height: 40px;
+          width: 40px;
           
           ion-icon {
-            font-size: 24px;
-            color: rgb(255, 255, 255);
+            font-size: 20px;
+            color: rgb(10, 76, 102);
           }
 
           &::part(native) {
-            background: rgba(25, 0, 255, 0.9);
+            background: #0551b4;
             border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
           }
         }
       }
@@ -235,18 +284,36 @@
 
           .size-chips {
             display: flex;
-            gap: 0.5rem;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
 
             .size-chip {
-              background: #f0f0f0;
-              border-radius: 50%;
-              width: 35px;
-              height: 35px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 0.8rem;
-              color: var(--primary-color);
+              padding: 4px 8px;
+              background: #f5f5f5;
+              border-radius: 16px;
+              font-size: 0.9rem;
+            }
+
+            .cart-btn {
+              --padding-start: 0;
+              --padding-end: 0;
+              --background: #1a73e8;
+              --border-radius: 50%;
+              height: 32px;
+              width: 32px;
+              margin-left: auto;
+              
+              ion-icon {
+                font-size: 18px;
+                color: white;
+              }
+
+              &::part(native) {
+                background: #1a73e8;
+                border-radius: 50%;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+              }
             }
           }
         }
@@ -300,7 +367,7 @@
     margin: 20px;
     transform: scale(0.95);
     transition: transform 0.4s ease-in-out;
-    background: #000;
+    background: white;
     border-radius: 15px;
     overflow: hidden;
     
@@ -342,6 +409,56 @@
         --background: rgba(255, 255, 255, 0.3);
       }
     }
+
+    .product-info {
+      padding: 20px;
+      color: #333;
+      
+      h2 {
+        color: #000;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      
+      .price {
+        color: #2c3e50;
+        font-size: 1.2em;
+        font-weight: 500;
+      }
+      
+      .description {
+        color: #666;
+        margin: 15px 0;
+        line-height: 1.5;
+      }
+      
+      .size-label {
+        color: #2c3e50;
+        font-weight: 500;
+        display: block;
+        margin-bottom: 8px;
+      }
+      
+      .size-chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        
+        .size-chip {
+          background: #f5f5f5;
+          color: #333;
+          padding: 4px 12px;
+          border-radius: 16px;
+          font-size: 0.9em;
+        }
+      }
+      
+      .add-to-cart {
+        margin-top: 20px;
+        --background: #2c3e50;
+        --color: white;
+      }
+    }
   }
 
   &.active .product-detail {
@@ -361,5 +478,148 @@
   .product-overlay .product-detail {
     width: 280px;
     height: 420px;
+  }
+}
+
+// Ajuste adicional para el contenedor de tallas
+.size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  position: relative;
+  
+  .floating-cart {
+    margin-left: auto;
+
+    .cart-btn {
+      --padding-start: 0;
+      --padding-end: 0;
+      --border-radius: 40%;
+      --background: #1a73e8;
+      margin: 0;
+      width: 40px;
+      height: 40px;
+      position: relative;
+      overflow: hidden;
+
+      &::part(native) {
+        width: 40px;
+        height: 10px;
+        border-radius: 50%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #1a73e8;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+
+      ion-icon {
+        width: 25px;
+        height: 25px;
+        color: white;
+        margin: 0;
+      }
+
+      &:hover {
+        --background: #1557b0;
+      }
+    }
+  }
+
+  .label, .size-chip {
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .size-chip {
+    background: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+  }
+}
+
+.description-container {
+  margin: 8px 0;
+  
+  .label {
+    color: #666;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+  
+  .product-description {
+    color: #333;
+    font-size: 0.9em;
+    margin-top: 4px;
+    line-height: 1.4;
+    
+    // Método más compatible para limitar líneas
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    // Fallback para navegadores que no soportan line-clamp
+    @supports not (-webkit-line-clamp: 2) {
+      max-height: 2.8em; // line-height * 2
+      position: relative;
+    }
+  }
+}
+
+ion-header {
+  ion-toolbar {
+    --background: transparent;
+    
+    .icon-button {
+      --padding-start: 8px;
+      --padding-end: 8px;
+      
+      ion-icon {
+        font-size: 28px;
+        color: #1a73e8;
+        transition: transform 0.2s ease;
+      }
+
+      &:hover {
+        ion-icon {
+          transform: scale(1.1);
+          color: #1557b0;
+        }
+      }
+    }
+  }
+}
+
+// Ajuste del espaciado entre botones
+ion-buttons {
+  gap: 8px;
+  margin-right: 16px;
+}
+
+.icon-button {
+  position: relative;
+  
+  ion-badge {
+    position: absolute;
+    top: 8px;
+    right: 22px;
+    border-radius: 50%;
+    padding: 4px;
+    min-width: 18px;
+    min-height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ion-color-danger);
+    color: white;
+    z-index: -1; // Asegura que el badge esté por encima del icono
+    transform: translate(0, 0); // Ayuda con problemas de renderizado
   }
 }
