@@ -17,8 +17,38 @@
 <ion-content [fullscreen]="true" class="modern-content">
   <!-- Hero Section -->
   <div class="hero-section">
-    <h1 class="hero-title">Descubre tu estilo</h1>
-    <p class="hero-subtitle">Colección 2024</p>
+    <swiper-container 
+      pagination="true" 
+      navigation="true" 
+      loop="true"
+      effect="fade"
+      autoplay-delay="3000"
+      autoplay-disable-on-interaction="false">
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff')">
+          <div class="overlay">
+            <h1 class="hero-title">Descubre tu estilo</h1>
+            <p class="hero-subtitle">Colección 2024</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2')">
+          <div class="overlay">
+            <h1 class="hero-title">Sneakers Elite</h1>
+            <p class="hero-subtitle">Las mejores marcas</p>
+          </div>
+        </div>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a')">
+          <div class="overlay">
+            <h1 class="hero-title">Estilo Único</h1>
+            <p class="hero-subtitle">Para cada ocasión</p>
+          </div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
   </div>
 
   <!-- Categorías con diseño moderno -->
@@ -33,26 +63,48 @@
     </ion-segment>
   </div>
 
-  <!-- Grid de Productos con nuevo diseño -->
-  <div class="products-grid">
+   <!-- Grid de Productos con nuevo diseño -->
+   <div class="products-grid">
     <div class="product-card" *ngFor="let product of products">
-      <div class="product-image-container">
+      <div class="product-image-container" (click)="showProductDetail(product)">
         <img [src]="product.image_url" [alt]="product.name" class="product-image">
+        <div class="stock-badge">
+          Stock {{product.stock}} 
+        </div>
         <div class="quick-add">
           <ion-button fill="clear" class="add-to-cart-btn">
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="cart-outline"></ion-icon>
           </ion-button>
         </div>
       </div>
       <div class="product-details">
-        <h3 class="product-name">{{product.name}}</h3>
+        <h3 class="product-name">
+          <span class="label"></span> {{product.name}}
+        </h3>
         <div class="product-meta">
-          <span class="product-price">S/ {{product.price}}</span>
-          <div class="size-chips">
-            <span *ngFor="let size of product.size" class="size-chip">{{size}}</span>
+          <div class="price-container">
+            <span class="label">Precio:</span>
+            <span class="product-price">S/ {{product.price}}</span>
+          </div>
+          <div class="size-container">
+            <span class="label">Talla:</span>
+            <div class="size-chips">
+              <span class="size-chip" *ngFor="let size of product.size">{{size}}</span>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+
+  <!-- Overlay para la imagen del producto -->
+  <div class="product-overlay" [class.active]="selectedProduct" (click)="closeProductDetail()">
+    <div class="product-detail" *ngIf="selectedProduct" (click)="$event.stopPropagation()">
+      <ion-button fill="clear" class="close-button" (click)="closeProductDetail()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+      <img [src]="selectedProduct?.image_url" [alt]="selectedProduct?.name">
     </div>
   </div>
 </ion-content>
