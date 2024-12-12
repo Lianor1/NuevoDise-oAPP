@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{ isLogin ? 'Iniciar Sesión' : 'Registro' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-container">
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
+      
+      <!-- Nombre completo (solo para registro) -->
+      <ion-item *ngIf="!isLogin">
+        <ion-label position="floating">Nombre Completo</ion-label>
+        <ion-input type="text" formControlName="fullName"></ion-input>
+      </ion-item>
+
+      <!-- Contraseña -->
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <!-- Botón de submit -->
+      <ion-button expand="block" type="submit" [disabled]="!authForm.valid" class="ion-margin-top">
+        {{ isLogin ? 'Iniciar Sesión' : 'Registrarse' }}
+      </ion-button>
+
+      <!-- Alternar entre login y registro -->
+      <ion-button expand="block" fill="clear" (click)="toggleAuthMode()">
+        {{ isLogin ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión' }}
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

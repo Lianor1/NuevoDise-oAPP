@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Panel de Administración</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Sección de Productos -->
+  <ion-segment [(ngModel)]="selectedSection" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="products">
+      <ion-label>Productos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="sales">
+      <ion-label>Ventas</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- Lista de Productos -->
+  <div *ngIf="selectedSection === 'products'">
+    <ion-button expand="block" (click)="addProduct()" class="ion-margin-bottom">
+      <ion-icon name="add"></ion-icon>
+      Agregar Producto
+    </ion-button>
+
+    <ion-list>
+      <ion-item *ngFor="let product of products">
+        <ion-thumbnail slot="start">
+          <img [src]="product.image_url" *ngIf="product.image_url">
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{product.name}}</h2>
+          <p>{{product.description}}</p>
+          <p>Precio: {{product.price | currency}}</p>
+          <p>Stock: {{product.stock}}</p>
+          <p>Categoría: {{product.category}}</p>
+          <p>Tallas: {{product.size.join(', ')}}</p>
+          <p>Color: {{product.color}}</p>
+        </ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)="editProduct(product)">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+          <ion-button (click)="deleteProduct(product)" color="danger">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Lista de Ventas -->
+  <div *ngIf="selectedSection === 'sales'">
+    <ion-list>
+      <ion-item *ngFor="let order of orders">
+        <ion-label>
+          <h2>Orden #{{order.id}}</h2>
+          <p>{{order.created_at | date}}</p>
+          <p>Total: {{order.total_amount | currency}}</p>
+          <p>Estado: {{order.status}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
