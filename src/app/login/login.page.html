@@ -1,39 +1,84 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>{{ isLogin ? 'Iniciar Sesión' : 'Registro' }}</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="login-container">
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
-      <!-- Email -->
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" formControlName="email"></ion-input>
-      </ion-item>
-      
-      <!-- Nombre completo (solo para registro) -->
-      <ion-item *ngIf="!isLogin">
-        <ion-label position="floating">Nombre Completo</ion-label>
-        <ion-input type="text" formControlName="fullName"></ion-input>
-      </ion-item>
 
-      <!-- Contraseña -->
-      <ion-item>
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
-      </ion-item>
+<ion-content [fullscreen]="true" class="auth-content">
+  <div class="auth-container">
+    <!-- Logo y título -->
+    <div class="brand-container">
+      <img src="assets/imagenes/1.png" alt="Logo" class="brand-logo">
+      <h1 class="brand-title">DINA</h1>
+    </div>
 
-      <!-- Botón de submit -->
-      <ion-button expand="block" type="submit" [disabled]="!authForm.valid" class="ion-margin-top">
-        {{ isLogin ? 'Iniciar Sesión' : 'Registrarse' }}
-      </ion-button>
+    <div class="form-container">
+      <h2 class="auth-title">{{ isLogin ? 'Bienvenido de vuelta' : 'Crear nueva cuenta' }}</h2>
 
-      <!-- Alternar entre login y registro -->
-      <ion-button expand="block" fill="clear" (click)="toggleAuthMode()">
-        {{ isLogin ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión' }}
-      </ion-button>
-    </form>
+      <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <!-- Email -->
+        <div class="form-field">
+          <ion-item lines="none" class="custom-input">
+            <ion-icon name="mail-outline" slot="start"></ion-icon>
+            <ion-input 
+              type="email" 
+              formControlName="email" 
+              placeholder="Correo electrónico">
+            </ion-input>
+          </ion-item>
+          <div class="error-message" *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid">
+            Por favor, ingresa un email válido
+          </div>
+        </div>
+        
+        <!-- Nombre completo (solo para registro) -->
+        <div class="form-field" *ngIf="!isLogin">
+          <ion-item lines="none" class="custom-input">
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            <ion-input 
+              type="text" 
+              formControlName="fullName" 
+              placeholder="Nombre completo">
+            </ion-input>
+          </ion-item>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="form-field">
+          <ion-item lines="none" class="custom-input">
+            <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+            <ion-input 
+              [type]="showPassword ? 'text' : 'password'" 
+              formControlName="password" 
+              placeholder="Contraseña">
+            </ion-input>
+            <ion-icon 
+              [name]="showPassword ? 'eye-outline' : 'eye-off-outline'"
+              slot="end"
+              (click)="togglePasswordVisibility()"
+              class="password-toggle">
+            </ion-icon>
+          </ion-item>
+          <div class="error-message" *ngIf="authForm.get('password')?.touched && authForm.get('password')?.invalid">
+            La contraseña debe tener al menos 6 caracteres
+          </div>
+        </div>
+
+        <!-- Botón de submit -->
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          [disabled]="!authForm.valid"
+          class="submit-button">
+          {{ isLogin ? 'Iniciar Sesión' : 'Registrarse' }}
+        </ion-button>
+
+        <!-- Alternar entre login y registro -->
+        <div class="toggle-container">
+          <p>
+            {{ isLogin ? '¿No tienes una cuenta?' : '¿Ya tienes una cuenta?' }}
+            <ion-button fill="clear" (click)="toggleAuthMode()" class="toggle-button">
+              {{ isLogin ? 'Regístrate' : 'Inicia sesión' }}
+            </ion-button>
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
 </ion-content>

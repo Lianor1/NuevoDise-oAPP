@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
   authForm!: FormGroup;
   isLogin = true;
   returnToPayment: boolean = false;
+  showPassword: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,6 +53,10 @@ export class LoginPage implements OnInit {
       this.authForm.get('fullName')?.clearValidators();
     }
     this.authForm.get('fullName')?.updateValueAndValidity();
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   async onSubmit() {

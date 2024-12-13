@@ -63,7 +63,7 @@
               <h2>Total Pagado</h2>
             </ion-label>
             <ion-note slot="end" color="success">
-              <h2>S/. {{ orderDetails?.total.toFixed(2) }}</h2>
+              <h2>S/. {{ orderDetails?.total?.toFixed(2) || '0.00' }}</h2>
             </ion-note>
           </ion-item>
         </div>
