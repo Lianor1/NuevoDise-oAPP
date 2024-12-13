@@ -1,0 +1,80 @@
+.settings-content {
+  --background: #f5f7fa;
+  
+  .settings-section {
+    margin: 20px 16px;
+    background: white;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+    h3 {
+      margin: 0 0 16px 0;
+      color: #1e2b6b;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    ion-list {
+      background: transparent;
+      padding: 0;
+    }
+
+    ion-item {
+      --background: transparent;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      --padding-bottom: 8px;
+      --padding-top: 8px;
+      margin-bottom: 8px;
+
+      ion-icon[slot="start"] {
+        color: #4a90e2;
+        font-size: 24px;
+        margin-right: 16px;
+      }
+
+      ion-label {
+        h4 {
+          font-size: 16px;
+          font-weight: 500;
+          color: #2c3e50;
+          margin: 0;
+        }
+
+        p {
+          font-size: 14px;
+          color: #7f8c8d;
+          margin: 4px 0 0 0;
+        }
+      }
+
+      ion-icon[slot="end"] {
+        color: #bdc3c7;
+      }
+    }
+  }
+
+  .logout-section {
+    margin: 32px 16px;
+
+    ion-button {
+      --border-radius: 12px;
+      --border-color: #ff4444;
+      --color: #ff4444;
+      font-weight: 500;
+      height: 48px;
+      
+      ion-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+ion-toggle {
+  --background: #e0e0e0;
+  --background-checked: #4a90e2;
+  --handle-background: #ffffff;
+  --handle-background-checked: #ffffff;
+}

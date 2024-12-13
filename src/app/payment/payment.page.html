@@ -1,0 +1,57 @@
+
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Método de Pago</ion-title>
+  </ion-toolbar>
+
+
+<ion-content class="ion-padding">
+  <div class="payment-methods">
+    <!-- Tarjeta -->
+    <ion-card (click)="selectPaymentMethod('card')" 
+              [class.selected]="selectedMethod === 'card'">
+      <ion-card-content>
+        <ion-icon name="card-outline"></ion-icon>
+        <h3>Tarjeta de Crédito/Débito</h3>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Yape -->
+    <ion-card (click)="selectPaymentMethod('yape')"
+              [class.selected]="selectedMethod === 'yape'">
+      <ion-card-content>
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+        <h3>Yape</h3>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Plin -->
+    <ion-card (click)="selectPaymentMethod('plin')"
+              [class.selected]="selectedMethod === 'plin'">
+      <ion-card-content>
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+        <h3>Plin</h3>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Efectivo -->
+    <ion-card (click)="selectPaymentMethod('cash')"
+              [class.selected]="selectedMethod === 'cash'">
+      <ion-card-content>
+        <ion-icon name="cash-outline"></ion-icon>
+        <h3>Efectivo</h3>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-button expand="block" 
+              (click)="proceedToConfirmation()"
+              [disabled]="!selectedMethod"
+              class="continue-button">
+    Continuar
+  </ion-button>
+</ion-content>

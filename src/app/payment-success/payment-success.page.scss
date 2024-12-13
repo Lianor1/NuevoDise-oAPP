@@ -1,0 +1,99 @@
+.voucher-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.success-message {
+  text-align: center;
+  margin: 20px 0;
+  
+  ion-icon {
+    font-size: 64px;
+    color: var(--ion-color-success);
+  }
+
+  h1 {
+    color: var(--ion-color-success);
+    margin: 10px 0;
+  }
+}
+
+.order-info {
+  margin: 16px 0;
+  p {
+    margin: 8px 0;
+    color: var(--ion-color-medium);
+  }
+}
+
+.products-list {
+  margin: 20px 0;
+  
+  h3 {
+    margin-bottom: 16px;
+    color: var(--ion-color-dark);
+  }
+}
+
+ion-thumbnail {
+  width: 80px;
+  height: 80px;
+  margin-right: 16px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.payment-summary {
+  margin-top: 20px;
+  border-top: 1px solid var(--ion-color-light);
+  padding-top: 16px;
+}
+
+.total-item {
+  --background: var(--ion-color-light);
+  border-radius: 8px;
+  
+  ion-note {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+}
+
+.thank-you {
+  text-align: center;
+  margin: 24px 0;
+  
+  p {
+    font-size: 1.2em;
+    color: var(--ion-color-dark);
+    margin-bottom: 8px;
+  }
+  
+  small {
+    color: var(--ion-color-medium);
+  }
+}
+
+.action-buttons {
+  margin-top: 20px;
+  
+  ion-button {
+    margin-bottom: 10px;
+  }
+}
+
+// Estilos para impresión
+@media print {
+  ion-header, .action-buttons {
+    display: none !important;
+  }
+
+  .voucher-container {
+    padding: 20px;
+  }
+} 

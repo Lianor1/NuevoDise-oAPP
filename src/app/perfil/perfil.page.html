@@ -1,0 +1,50 @@
+
+<ion-content class="profile-content">
+  <!-- Header Simple y Elegante -->
+  <div class="profile-header">
+    <div class="avatar-container">
+      <ion-avatar>
+      </ion-avatar>
+    </div>
+    <h1>New usuario</h1>
+
+  </div>
+
+  <!-- Stats Simplificados -->
+  <div class="stats-container">
+    <div class="stat-box">
+      <ion-icon name="bag-handle-outline"></ion-icon>
+      <div class="stat-info">
+        <h3>{{ orderStats.totalOrders }}</h3>
+        <p>Compras</p>
+      </div>
+    </div>
+
+    <div class="stat-box">
+      <ion-icon name="diamond-outline"></ion-icon>
+      <div class="stat-info">
+        <h3>0</h3>
+        <p>Puntos</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menú Simple -->
+  <div class="menu-list">
+
+    <ion-item lines="none" detail="true">
+      <ion-icon slot="start" name="gift-outline"></ion-icon>
+      <ion-label>Beneficios Premium</ion-label>
+    </ion-item>
+
+    <ion-item lines="none" detail="true" routerLink="/configuracion">
+      <ion-icon slot="start" name="settings-outline"></ion-icon>
+      <ion-label>Configuración</ion-label>
+    </ion-item>
+
+    <ion-item lines="none" detail="true" routerLink="/home">
+      <ion-icon slot="start" name="home-outline"></ion-icon>
+      <ion-label>Inicio</ion-label>
+    </ion-item>
+  </div>
+</ion-content>

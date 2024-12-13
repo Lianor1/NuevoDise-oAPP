@@ -1,0 +1,237 @@
+// Variables
+:host {
+  --primary-color: #4a90e2;
+  --success-color: #2ecc71;
+  --danger-color: #e74c3c;
+  --background-color: #f8f9fa;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ion-content {
+  --background: var(--background-color);
+}
+
+// Estilos de la tarjeta principal
+ion-card {
+  border-radius: 16px;
+  margin: 16px;
+  box-shadow: var(--card-shadow);
+  background: white;
+
+  ion-card-header {
+    background: linear-gradient(135deg, var(--primary-color), darken(#4a90e2, 15%));
+    color: white;
+    border-radius: 16px 16px 0 0;
+    padding: 20px;
+
+    ion-card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    ion-card-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+    }
+  }
+}
+
+// Estilos para los productos
+.productos-comprar {
+  padding: 16px;
+
+  .producto-card {
+    background: white;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    .producto-imagen {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    .producto-detalles {
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 8px;
+      }
+
+      .talla {
+        background: #f7f8fa;
+        padding: 4px 12px;
+        border-radius: 20px;
+        display: inline-block;
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 12px;
+      }
+
+      .cantidad-control {
+        background: #f8f9fa;
+        padding: 8px;
+        border-radius: 25px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+
+        .cantidad-btn {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          border: none;
+          background: white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          color: var(--primary-color);
+          font-weight: bold;
+          transition: all 0.2s ease;
+
+          &:active {
+            transform: scale(0.95);
+            background: var(--primary-color);
+            color: white;
+          }
+        }
+
+        span {
+          font-weight: 600;
+          min-width: 20px;
+          text-align: center;
+        }
+      }
+    }
+
+    .producto-precio {
+      .delete-icon {
+        color: var(--danger-color);
+        font-size: 1.3rem;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+
+        &:active {
+          background: rgba(231, 76, 60, 0.1);
+        }
+      }
+
+      .subtotal {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .total {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    margin-top: 24px;
+    box-shadow: var(--card-shadow);
+    font-size: 1.2rem;
+
+    .precio {
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.4rem;
+    }
+  }
+}
+
+// Estilos para los botones de acción
+.action-buttons {
+  padding: 16px;
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+
+  ion-button {
+    margin: 0;
+    height: 52px;
+    --border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+
+    &[color="success"] {
+      --background: var(--success-color);
+      --background-activated: darken($color: #2ecc71, $amount: 10);
+    }
+
+    &[color="medium"] {
+      --background: #95a5a6;
+      --background-activated: darken($color: #95a5a6, $amount: 10);
+    }
+
+    ion-icon {
+      font-size: 1.3rem;
+      margin-right: 8px;
+    }
+  }
+}
+
+// Animaciones
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.producto-card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Método de pago
+ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  --border-radius: 12px;
+  margin: 8px 0;
+
+  ion-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  ion-label {
+    h2 {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #2c3e50;
+    }
+    p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Mis Compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="modern-content">
+  <!-- Header Stats -->
+  <div class="stats-header">
+    <div class="stat-card">
+      <ion-icon name="bag-check"></ion-icon>
+      <div class="stat-info">
+        <span class="stat-value">{{ orders.length }}</span>
+        <span class="stat-label">Compras</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <ion-icon name="cash"></ion-icon>
+      <div class="stat-info">
+        <span class="stat-value">S/. {{ getTotalSpent() }}</span>
+        <span class="stat-label">Total</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orders Timeline -->
+  <div class="timeline-container">
+    <div class="order-timeline" *ngFor="let order of orders">
+      <div class="timeline-date">
+        <div class="date-bubble">
+          <span class="day">{{ order.created_at | date:'dd' }}</span>
+          <span class="month">{{ order.created_at | date:'MMM' }}</span>
+        </div>
+        <div class="time">{{ order.created_at | date:'HH:mm' }}</div>
+      </div>
+
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-title">
+            <h2>Orden #{{ order.id | slice:-6 }}</h2>
+            <span class="status-badge success">Completado</span>
+          </div>
+          <div class="order-amount">
+            <span class="amount">S/. {{ order.total_amount }}</span>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          <div class="product-item" *ngFor="let item of order.order_items">
+            <div class="product-image">
+              <img [src]="item.products.image_url" [alt]="item.products.name">
+              <div class="quantity-badge">{{ item.quantity }}</div>
+            </div>
+            <div class="product-info">
+              <h3>{{ item.products.name }}</h3>
+              <div class="product-specs">
+                <span class="spec-tag">Talla {{ item.size }}</span>
+                <span class="spec-tag price">S/. {{ item.price }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-actions">
+          <ion-button fill="clear" class="view-receipt" (click)="viewOrderDetails(order)">
+            <ion-icon name="receipt-outline"></ion-icon>
+            Ver Comprobante
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!isLoading && orders.length === 0">
+    <div class="empty-illustration">
+      <ion-icon name="bag-handle-outline"></ion-icon>
+    </div>
+    <h2>¡Aún no tienes compras!</h2>
+    <p>Explora nuestra tienda y encuentra algo increíble</p>
+    <ion-button expand="block" routerLink="/home">
+      Ir a la Tienda
+    </ion-button>
+  </div>
+</ion-content>

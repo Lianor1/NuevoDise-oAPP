@@ -1,0 +1,50 @@
+
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/perfil" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Configuración</ion-title>
+  </ion-toolbar>
+
+<ion-content class="settings-content">
+  <!-- Perfil y Cuenta -->
+  <div class="settings-section">
+    <h3>Cuenta</h3>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+        <ion-label>
+          <h4>Editar Perfil</h4>
+          <p>Actualiza tu información personal</p>
+        </ion-label>
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon slot="start" name="key-outline"></ion-icon>
+        <ion-label>
+          <h4>Cambiar Contraseña</h4>
+          <p>Gestiona tu seguridad</p>
+        </ion-label>
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon slot="start" name="language-outline"></ion-icon>
+        <ion-label>
+          <h4>Idioma</h4>
+          <p>Español</p>
+        </ion-label>
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!-- Botón de Cerrar Sesión -->
+  <div class="logout-section">
+    <ion-button expand="block" color="danger" fill="outline" (click)="logout()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Cerrar Sesión
+    </ion-button>
+  </div>
+</ion-content>

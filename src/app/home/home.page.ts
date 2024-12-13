@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../services/cart.service';
 import { ToastController, ModalController } from '@ionic/angular';
 import { SizeSelectorComponent } from '../components/size-selector/size-selector.component';
+import { AuthService } from '../services/auth.service';
 
 // Registrar Swiper
 register();
@@ -27,7 +28,8 @@ export class HomePage implements OnInit {
     private router: Router,
     private cartService: CartService,
     private toastController: ToastController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public authService: AuthService
   ) {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   }
@@ -49,7 +51,8 @@ export class HomePage implements OnInit {
           clickable: true
         },
         navigation: true,
-        loop: true
+        loop: true,
+          
       };
 
       Object.assign(swiperEl, swiperParams);

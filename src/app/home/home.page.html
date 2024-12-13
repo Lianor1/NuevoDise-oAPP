@@ -1,5 +1,8 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="authService.isAuthenticated()">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title class="modern-title">
       <span class="gradient-text">Sneaker Elite</span>
     </ion-title>

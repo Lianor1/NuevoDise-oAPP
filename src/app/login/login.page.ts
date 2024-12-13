@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from 'src/environments/environment';
 import { LoadingController, ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,15 +15,21 @@ export class LoginPage implements OnInit {
   private supabase: SupabaseClient;
   authForm!: FormGroup;
   isLogin = true;
+  returnToPayment: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
     this.initForm();
+    this.route.params.subscribe(params => {
+      this.returnToPayment = params['returnToPayment'] === 'true';
+    });
   }
 
   ngOnInit() {
@@ -67,7 +74,6 @@ export class LoginPage implements OnInit {
           if (error) throw error;
 
           if (user) {
-            // Verificar el rol del usuario
             const { data: profile, error: profileError } = await this.supabase
               .from('profiles')
               .select('role')
@@ -76,9 +82,8 @@ export class LoginPage implements OnInit {
 
             if (profileError) throw profileError;
 
-            // Redirigir según el rol
-            if (profile?.role === 'admin') {
-              this.router.navigate(['/admin']);
+            if (this.returnToPayment) {
+              this.router.navigate(['/payment']);
             } else {
               this.router.navigate(['/home']);
             }

@@ -3,6 +3,8 @@ import { CartService } from '../services/cart.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { ToastController } from '@ionic/angular';
 
 
 interface CartItem {
@@ -25,7 +27,9 @@ export class CarritoPage implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private toastController: ToastController
   ) {
     // Inicializar observables
     this.cartItems$ = this.cartService.getCart();
@@ -48,9 +52,19 @@ export class CarritoPage implements OnInit {
     this.cartService.removeFromCart(item.id, item.size);
   }
 
-  checkout() {
-    // Por ahora solo navegaremos a home
-    console.log('Iniciando proceso de checkout...');
-    // this.router.navigate(['/checkout']);
+  async checkout() {
+    if (!this.authService.isAuthenticated()) {
+      const toast = await this.toastController.create({
+        message: 'Inicia sesión para continuar con tu compra',
+        duration: 2000,
+        position: 'bottom',
+        color: 'primary'
+      });
+      toast.present();
+      this.router.navigate(['/login', { returnToPayment: true }]);
+      return;
+    }
+    
+    this.router.navigate(['/payment']);
   }
 }

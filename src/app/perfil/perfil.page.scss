@@ -1,0 +1,135 @@
+.profile-content {
+  --background: #f5f7fa;
+}
+
+.profile-header {
+  padding: 40px 20px;
+  text-align: center;
+  background: white;
+
+  .avatar-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+
+    ion-avatar {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      border: 3px solid #4a90e2;
+    }
+
+    .premium-badge {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #ffd700;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ion-icon {
+        color: white;
+        font-size: 14px;
+      }
+    }
+  }
+
+  h1 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .member-tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    background: #4a90e2;
+    border-radius: 15px;
+    
+    span {
+      color: white;
+      font-size: 14px;
+    }
+  }
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  margin: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+
+  .stat-box {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    ion-icon {
+      font-size: 24px;
+      color: #4a90e2;
+      margin-bottom: 5px;
+    }
+
+    .stat-info {
+      h3 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0;
+        color: #7f8c8d;
+        font-size: 14px;
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &:hover {
+      background: #f5f5f5;
+    }
+  }
+}
+
+.menu-list {
+  margin: 20px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+
+  ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    --background: transparent;
+    --border-color: #edf2f7;
+
+    ion-icon {
+      color: #4a90e2;
+      font-size: 20px;
+    }
+
+    ion-label {
+      color: #2c3e50;
+      font-weight: 500;
+    }
+
+    &:active {
+      --background: #f8f9fa;
+    }
+  }
+}

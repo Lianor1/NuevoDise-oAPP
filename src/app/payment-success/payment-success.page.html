@@ -1,0 +1,92 @@
+
+    <ion-toolbar class="ion-no-border">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/my-history" text=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>Comprobante de Pago</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="printVoucher()">
+          <ion-icon name="print-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+
+
+<ion-content class="ion-padding">
+  <div class="voucher-container">
+    <!-- Mensaje de Éxito -->
+    <div class="success-message">
+      <ion-icon name="checkmark-circle" color="success"></ion-icon>
+      <h1>¡Pago Exitoso!</h1>
+    </div>
+
+    <!-- Detalles de la Compra -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Comprobante de Pago</ion-card-subtitle>
+        <ion-card-title>Detalles de la Compra</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- Información de la Orden -->
+        <div class="order-info">
+          <p><strong>Fecha:</strong> {{ orderDetails?.date | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong>Orden #:</strong> {{ orderDetails?.orderId }}</p>
+          <p><strong>Método de Pago:</strong> {{ orderDetails?.paymentMethod }}</p>
+        </div>
+
+        <!-- Lista de Productos -->
+        <div class="products-list">
+          <h3>Productos Comprados</h3>
+          <ion-list>
+            <ion-item *ngFor="let item of orderDetails?.items">
+              <ion-thumbnail slot="start">
+                <img [src]="item.image_url" alt="Producto">
+              </ion-thumbnail>
+              <ion-label>
+                <h2>{{ item.name }}</h2>
+                <p>Talla: {{ item.size }}</p>
+                <p>Cantidad: {{ item.quantity }}</p>
+                <p>Precio unitario: S/. {{ item.price }}</p>
+              </ion-label>
+              <ion-note slot="end">
+                <strong>S/. {{ item.price * item.quantity }}</strong>
+              </ion-note>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <!-- Resumen de Pago -->
+        <div class="payment-summary">
+          <ion-item lines="none" class="total-item">
+            <ion-label>
+              <h2>Total Pagado</h2>
+            </ion-label>
+            <ion-note slot="end" color="success">
+              <h2>S/. {{ orderDetails?.total.toFixed(2) }}</h2>
+            </ion-note>
+          </ion-item>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Mensaje de Agradecimiento -->
+    <div class="thank-you">
+      <p>¡Gracias por tu compra!</p>
+      <small>Guarda este comprobante para cualquier consulta</small>
+    </div>
+
+    <!-- Botones de Acción -->
+    <div class="action-buttons">
+      <ion-button expand="block" (click)="printVoucher()" color="primary">
+        <ion-icon name="print-outline" slot="start"></ion-icon>
+        Imprimir Comprobante
+      </ion-button>
+      
+      <ion-button expand="block" (click)="goToHome()" color="medium">
+        <ion-icon name="home-outline" slot="start"></ion-icon>
+        Volver al Inicio
+      </ion-button>
+    </div>
+  </div>
+</ion-content> 

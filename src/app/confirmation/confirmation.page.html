@@ -1,0 +1,84 @@
+
+  <ion-toolbar class="ion-no-border">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/payment" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Confirmar Pedido</ion-title>
+  </ion-toolbar>
+
+
+<ion-content class="ion-padding">
+  <!-- Resumen del Pedido -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Resumen del Pedido</ion-card-title>
+      <ion-card-subtitle>{{ currentDate | date:'dd/MM/yyyy HH:mm' }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <!-- Método de Pago -->
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-icon [name]="getPaymentMethodIcon()" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Método de Pago</h2>
+          <p>{{ getPaymentMethodName() }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de Productos -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Productos a Comprar</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let item of cartItems">
+          <ion-thumbnail slot="start">
+            <img [src]="item.image_url" alt="Producto">
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ item.name }}</h2>
+            <p>Talla: {{ item.size }}</p>
+            <p>Cantidad: {{ item.quantity }}</p>
+            <p>Precio: S/. {{ item.price }}</p>
+          </ion-label>
+          <ion-note slot="end" color="primary">
+            S/. {{ item.price * item.quantity }}
+          </ion-note>
+        </ion-item>
+      </ion-list>
+
+      <!-- Total -->
+      <ion-item lines="none" class="total-item">
+        <ion-label>
+          <h2>Total a Pagar</h2>
+        </ion-label>
+        <ion-note slot="end" color="primary">
+          <h2>S/. {{ orderTotal.toFixed(2) }}</h2>
+        </ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botones de Acción -->
+  <div class="action-buttons">
+    <ion-button expand="block" 
+                (click)="confirmPayment()" 
+                color="success"
+                [disabled]="isProcessing || cartItems.length === 0">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      {{ isProcessing ? 'Procesando...' : 'Confirmar Pago' }}
+    </ion-button>
+
+    <ion-button expand="block" 
+                (click)="cancelPayment()" 
+                color="medium"
+                [disabled]="isProcessing">
+      <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+      Cancelar
+    </ion-button>
+  </div>
+</ion-content>
