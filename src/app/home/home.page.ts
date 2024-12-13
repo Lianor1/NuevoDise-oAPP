@@ -133,4 +133,22 @@ export class HomePage implements OnInit {
       toast.present();
     }
   }
+  goToLogin() {
+ 
+      // Si no está autenticado, ir a la página de login
+      this.router.navigate(['/login']);
+
+  }
+  async handleRefresh(event: any) {
+    try {
+      // Recargar tus productos
+      await this.loadProducts();
+      // Recargar categorías si las tienes
+      
+    } catch (error) {
+      console.error('Error al actualizar:', error);
+    } finally {
+      event.target.complete();
+    }
+  }
 }

@@ -1,39 +1,56 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
+
+  <ion-toolbar class="ion-no-border">
+    <!-- Botón del menú lateral solo si el usuario está autenticado -->
     <ion-buttons slot="start" *ngIf="authService.isAuthenticated()">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+
+    <!-- Título principal -->
     <ion-title class="modern-title">
       <span class="gradient-text">Sneaker Elite</span>
     </ion-title>
+
+    <!-- Botones a la derecha -->
     <ion-buttons slot="end">
-      <ion-button class="icon-button">
-        <ion-icon name="search-outline" size="large"></ion-icon>
+      <!-- Ícono de login SOLO si el usuario NO está autenticado -->
+      <ion-button class="icon-button" (click)="goToLogin()">
+        <ion-icon name="person-outline" size="large"></ion-icon>
       </ion-button>
+
+      <!-- Botón del carrito (siempre visible) -->
       <ion-button class="icon-button" (click)="goToCart()">
         <ion-icon name="cart-outline" size="large"></ion-icon>
-        <ion-badge *ngIf="(cartItemCount$ | async) as count" 
-                  [style.display]="count > 0 ? 'block' : 'none'"
-                  color="danger">
+        <ion-badge *ngIf="(cartItemCount$ | async) as count" [style.display]="count > 0 ? 'block' : 'none'" color="danger">
           {{ count }}
         </ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
+
+
+
+
+
+
 
 <ion-content [fullscreen]="true" class="modern-content">
+  <!-- Agregar el refresher aquí -->
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Desliza para actualizar"
+      refreshingSpinner="circles"
+      refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <!-- Hero Section -->
   <div class="hero-section">
-    <swiper-container 
-      pagination="true" 
-      navigation="true" 
-      loop="true"
-      effect="fade"
-      autoplay-delay="3000"
+    <swiper-container pagination="true" navigation="true" loop="true" effect="fade" autoplay-delay="3000"
       autoplay-disable-on-interaction="false">
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff')">
           <div class="overlay">
             <h1 class="hero-title">Descubre tu estilo</h1>
             <p class="hero-subtitle">Colección 2024</p>
@@ -41,7 +58,8 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1552346154-21d32810aba3')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1552346154-21d32810aba3')">
           <div class="overlay">
             <h1 class="hero-title">Innovación y Confort</h1>
             <p class="hero-subtitle">Tecnología de última generación</p>
@@ -49,7 +67,8 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb')">
           <div class="overlay">
             <h1 class="hero-title">Ediciones Limitadas</h1>
             <p class="hero-subtitle">Exclusividad en cada paso</p>
@@ -57,7 +76,8 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa')">
           <div class="overlay">
             <h1 class="hero-title">Diseño Premium</h1>
             <p class="hero-subtitle">Calidad que se nota</p>
@@ -65,7 +85,8 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1597248881519-db089d3744a5')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1597248881519-db089d3744a5')">
           <div class="overlay">
             <h1 class="hero-title">Estilo Urbano</h1>
             <p class="hero-subtitle">La ciudad es tu pasarela</p>
@@ -73,7 +94,8 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772')">
           <div class="overlay">
             <h1 class="hero-title">Colección Deportiva</h1>
             <p class="hero-subtitle">Supera tus límites</p>
@@ -81,7 +103,8 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2')">
           <div class="overlay">
             <h1 class="hero-title">Sneakers Elite</h1>
             <p class="hero-subtitle">Las mejores marcas</p>
@@ -89,7 +112,8 @@
         </div>
       </swiper-slide>
       <swiper-slide>
-        <div class="hero-content" style="background-image: url('https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a')">
+        <div class="hero-content"
+          style="background-image: url('https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a')">
           <div class="overlay">
             <h1 class="hero-title">Estilo Único</h1>
             <p class="hero-subtitle">Para cada ocasión</p>
@@ -111,8 +135,8 @@
     </ion-segment>
   </div>
 
-   <!-- Grid de Productos con nuevo diseño -->
-   <div class="products-grid">
+  <!-- Grid de Productos con nuevo diseño -->
+  <div class="products-grid">
     <div class="product-card" *ngFor="let product of products">
       <div class="product-image-container" (click)="showProductDetail(product)">
         <img [src]="product.image_url" [alt]="product.name">

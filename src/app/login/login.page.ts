@@ -87,10 +87,14 @@ export class LoginPage implements OnInit {
 
             if (profileError) throw profileError;
 
-            if (this.returnToPayment) {
-              this.router.navigate(['/payment']);
+            if (profile.role === 'admin') {
+              this.router.navigate(['/admin']);
             } else {
-              this.router.navigate(['/home']);
+              if (this.returnToPayment) {
+                this.router.navigate(['/payment']);
+              } else {
+                this.router.navigate(['/home']);
+              }
             }
           }
         } else {
